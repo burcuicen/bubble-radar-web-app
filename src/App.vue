@@ -6,6 +6,13 @@
 import { defineComponent } from 'vue';
 
 export default defineComponent({
-  name: 'App'
+  name: 'App',
+  methods: {
+    async getPosts() {
+      //const response = await this.$api.
+      //console.log(this.$api)
+      console.log(this.$api)
+    }
+  }
 })
 </script>
