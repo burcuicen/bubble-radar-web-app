@@ -1,6 +1,5 @@
-<template>
-  <q-page class="row items-center justify-evenly">
-  </q-page>
+<template lang="pug">
+q-page.row.items-center fdghj
 </template>
 
 <script lang="ts">
