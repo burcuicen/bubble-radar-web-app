@@ -8,7 +8,7 @@ import { RequestWrapper } from '../interfaces';
 import { to } from '../utils';
 
 export class HttpClient {
-  private API_BASE_URL = 'localhost:3000';
+  private API_BASE_URL = 'http://localhost:3000';
   private axios: AxiosInstance;
 
   constructor() {

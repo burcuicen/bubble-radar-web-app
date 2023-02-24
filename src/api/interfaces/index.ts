@@ -34,6 +34,15 @@ export interface BaseModel {
   createdDate?: number;
   updatedDate?: number;
 }
+export interface TrendingKeyword<T> extends BaseModel {
+  keyword: string;
+  order: number;
+  term: string;
+}
+export interface PopularSearch<T> extends BaseModel {
+  keyword: string;
+  order: number;
+}
 
 export type Raw = 'raw';
 export type Populated = 'populated';

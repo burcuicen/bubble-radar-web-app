@@ -6,39 +6,26 @@ import {
   Populated,
   QueryParams,
   RequestWrapper,
-  TrendingKeyword,
+  PopularSearch,
 } from '../interfaces';
 
-export class TrendingRepository {
+export class PopularRepository {
   private httpClient: HttpClient;
 
   constructor(httpClient: HttpClient) {
     this.httpClient = httpClient;
   }
   /**
-   * Get all trending keywords
+   * Get all popular searches
    */
   async getAll<
-    T = PaginatedResult<TrendingKeyword<Populated>>,
+    T = PaginatedResult<PopularSearch<Populated>>,
     E = ErrorResponse
   >(queryParams?: QueryParams): Promise<RequestWrapper<T, E>> {
     const config: AxiosRequestConfig = {
       method: 'GET',
-      url: '/trending/keywords',
+      url: '/popular/searches',
       params: queryParams,
-    };
-
-    return await this.httpClient.request<T, E>(config);
-  }
-  /**
-   * Fetches trending keywords by alphabet and saves them to the database
-   */
-  async createByAlphabet<T = TrendingKeyword<Populated>, E = ErrorResponse>(
-    letter: string
-  ): Promise<RequestWrapper<T, E>> {
-    const config: AxiosRequestConfig = {
-      method: 'GET',
-      url: `/trending/${letter}`,
     };
 
     return await this.httpClient.request<T, E>(config);
