@@ -7,7 +7,8 @@ q-layout(view="hHh Lpr lff" class="shadow-2 rounded-borders")
   q-drawer(v-model="drawer" show-if-above :mini="miniState" @mouseover="miniState = false" @mouseout="miniState = true" :width="250" :breakpoint="500" bordered class="bg-grey-2" style="overflow: hidden")
     b-sidebar
   q-page-container
-    router-view
+    q-page.q-pa-xl
+      router-view
 </template>
 
 <script lang="ts">

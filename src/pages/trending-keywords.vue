@@ -1,0 +1,78 @@
+<template lang="pug">
+q-table(wrap-cells flat bordered color="primary" title="Trending Keywords" :rows="table.rows" :columns="table.columns" row-key="_id" :loading="table.loading" :filter="table.keyword" @request="search()" v-model:pagination="table.pagination" :rows-per-page-options="table.rowsPerPageOptions")
+  template(#top-right="props")
+    q-input.q-mx-md(filled dense clearable v-model="table.keyword" style="width: 200px" placeholder="Search.." debounce="500")
+      template(#prepend)
+        q-icon(name="search")
+
+</template>
+<script>
+import { defineComponent } from 'vue';
+export default defineComponent({
+  name: 'TrendingKeywordsList',
+  data() {
+    return {
+      table: {
+        rows: [],
+        columns: [],
+        loading: false,
+        keyword: '',
+        pagination: {
+          page: 1,
+          rowsPerPage: 10
+        },
+        rowsPerPageOptions: [10, 20, 30, 50, 100]
+      }
+    }
+  },
+  created() {
+    this.table.columns = this.setColumns()
+    this.search()
+  },
+  methods: {
+    setColumns() {
+      return [
+        {
+          name: 'keyword',
+          required: true,
+          label: 'Keyword',
+          align: 'left',
+          field: row => row.keyword,
+          format: val => `${val}`,
+          sortable: false
+        },
+        {
+          name: 'order',
+          required: true,
+          label: 'Order',
+          align: 'left',
+          field: row => row.order,
+          format: val => `${val}`,
+          sortable: true
+        },
+        {
+          name: 'term',
+          required: true,
+          label: 'Letter',
+          align: 'left',
+          field: row => row.term,
+          format: val => `${val}`,
+          sortable: true
+        }
+      ]
+    },
+    async search() {
+      console.log('woeking')
+      const { err, res } = await this.$api.trending.getAll({
+        page: this.table.pagination.page,
+        limit: this.table.pagination.rowsPerPage,
+        keyword: this.table.keyword,
+        skip: (this.table.pagination.page - 1) * this.table.pagination.rowsPerPage
+      })
+      console.log('haha')
+      if (err) return this.$q.notify({ type: 'negative', message: err.message })
+      this.table.rows = res.data
+    }
+  },
+})
+</script>
