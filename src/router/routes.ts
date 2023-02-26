@@ -10,6 +10,10 @@ const routes: RouteRecordRaw[] = [
         path: '/trending-keywords',
         component: () => import('pages/trending-keywords.vue'),
       },
+      {
+        path: '/popular-searches',
+        component: () => import('pages/popular-searches.vue'),
+      },
     ],
   },
 
