@@ -14,6 +14,22 @@ const routes: RouteRecordRaw[] = [
         path: '/popular-searches',
         component: () => import('pages/popular-searches.vue'),
       },
+      {
+        path: 'trending-topics',
+        component: () => import('pages/trending-topics.vue'),
+      },
+      {
+        path: 'tag-manager',
+        component: () => import('pages/tag-manager.vue'),
+      },
+      {
+        path: 'trademark-checker',
+        component: () => import('pages/trademark-checker.vue'),
+      },
+      {
+        path: 'my-niche-search',
+        component: () => import('pages/my-niche-search.vue'),
+      },
     ],
   },
 
