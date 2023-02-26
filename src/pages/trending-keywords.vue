@@ -1,7 +1,7 @@
 <template lang="pug">
-q-table(wrap-cells flat bordered color="primary" title="Trending Keywords" :rows="table.rows" :columns="table.columns" row-key="_id" :loading="table.loading" :filter="table.keyword" @request="search()" v-model:pagination="table.pagination" :rows-per-page-options="table.rowsPerPageOptions")
+q-table(wrap-cells flat bordered color="primary" title="Trending Keywords" :rows="table.rows" :columns="table.columns" row-key="_id" :loading="table.loading" :filter="table.keyword" @request="search" v-model:pagination="table.pagination" :rows-per-page-options="table.rowsPerPageOptions")
   template(#top-right="props")
-    q-input.q-mx-md(filled dense clearable v-model="table.keyword" style="width: 200px" placeholder="Search.." debounce="500")
+    q-input.q-mx-md(filled dense clearable v-model="table.keyword" style="width: 200px" placeholder="Search.." @update:model-value="search")
       template(#prepend)
         q-icon(name="search")
 
@@ -23,6 +23,15 @@ export default defineComponent({
         },
         rowsPerPageOptions: [10, 20, 30, 50, 100]
       }
+    }
+  },
+  watch: {
+    //watch table.pagination
+    'table.pagination': {
+      handler() {
+        this.search()
+      },
+      deep: true
     }
   },
   created() {
@@ -62,14 +71,13 @@ export default defineComponent({
       ]
     },
     async search() {
-      console.log('woeking')
+      console.log('i li')
+      const { page, rowsPerPage } = this.table.pagination
       const { err, res } = await this.$api.trending.getAll({
-        page: this.table.pagination.page,
-        limit: this.table.pagination.rowsPerPage,
-        keyword: this.table.keyword,
-        skip: (this.table.pagination.page - 1) * this.table.pagination.rowsPerPage
+        page: page,
+        limit: rowsPerPage,
+        text: this.table.keyword
       })
-      console.log('haha')
       if (err) return this.$q.notify({ type: 'negative', message: err.message })
       this.table.rows = res.data
     }
