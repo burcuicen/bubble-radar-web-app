@@ -7,11 +7,15 @@ export class BubbleAPI {
   private httpClient: HttpClient;
   trending: repositories.TrendingRepository;
   popular: repositories.PopularRepository;
+  myNicheSearch: repositories.NicheSearchRepository;
 
   constructor() {
     this.httpClient = new HttpClient();
     this.trending = new repositories.TrendingRepository(this.httpClient);
     this.popular = new repositories.PopularRepository(this.httpClient);
+    this.myNicheSearch = new repositories.NicheSearchRepository(
+      this.httpClient
+    );
   }
   static getInstance() {
     return __instance || (__instance = new BubbleAPI());

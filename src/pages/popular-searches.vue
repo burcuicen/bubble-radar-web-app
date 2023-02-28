@@ -49,16 +49,7 @@ export default defineComponent({
           field: row => row.keyword,
           format: val => `${val}`,
           sortable: false
-        },
-        {
-          name: 'order',
-          required: true,
-          label: 'Order',
-          align: 'left',
-          field: row => row.order,
-          format: val => `${val}`,
-          sortable: true
-        },
+        }
       ]
     },
     async search() {

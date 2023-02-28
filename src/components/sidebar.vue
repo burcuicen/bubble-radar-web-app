@@ -3,7 +3,7 @@ q-scroll-area.fit(:horizontal-thumb-style="{ opacity: 0 }")
   q-list(padding)
     q-item(clickable v-ripple v-for="item in menu" :key="item.title" :to="item.to")
       q-item-section(avatar)
-        q-icon(:name="item.icon")
+        q-icon(:name="item.icon" )
       q-item-section {{ item.title }}
 q-page-container
   router-view

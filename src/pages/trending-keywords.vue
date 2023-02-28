@@ -4,7 +4,6 @@ q-table(wrap-cells flat bordered color="primary" title="Trending Keywords" :rows
     q-input.q-mx-md(filled dense clearable v-model="table.keyword" style="width: 200px" placeholder="Search.." @update:model-value="search")
       template(#prepend)
         q-icon(name="search")
-
 </template>
 <script>
 import { defineComponent } from 'vue';
@@ -39,6 +38,14 @@ export default defineComponent({
     this.search()
   },
   methods: {
+    cleanDuplicateData() {
+      this.table.rows = this.table.rows.filter((thing, index, self) =>
+        index === self.findIndex((t) => (
+          t.keyword === thing.keyword
+        ))
+      )
+
+    },
     setColumns() {
       return [
         {
@@ -49,24 +56,6 @@ export default defineComponent({
           field: row => row.keyword,
           format: val => `${val}`,
           sortable: false
-        },
-        {
-          name: 'order',
-          required: true,
-          label: 'Order',
-          align: 'left',
-          field: row => row.order,
-          format: val => `${val}`,
-          sortable: true
-        },
-        {
-          name: 'term',
-          required: true,
-          label: 'Letter',
-          align: 'left',
-          field: row => row.term,
-          format: val => `${val}`,
-          sortable: true
         }
       ]
     },
@@ -80,6 +69,7 @@ export default defineComponent({
       })
       if (err) return this.$q.notify({ type: 'negative', message: err.message })
       this.table.rows = res.data
+      this.cleanDuplicateData()
     }
   },
 })

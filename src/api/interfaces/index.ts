@@ -43,6 +43,13 @@ export interface PopularSearch<T> extends BaseModel {
   keyword: string;
   order: number;
 }
+export interface NicheSearch<T> extends BaseModel {
+  trendingKeywords: string[];
+  mainTag: string;
+  tags: string[];
+  niche: string;
+  plannedUploadCount: number;
+}
 
 export type Raw = 'raw';
 export type Populated = 'populated';
