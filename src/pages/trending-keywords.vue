@@ -60,7 +60,6 @@ export default defineComponent({
       ]
     },
     async search() {
-      console.log('i li')
       const { page, rowsPerPage } = this.table.pagination
       const { err, res } = await this.$api.trending.getAll({
         page: page,
