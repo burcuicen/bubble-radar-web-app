@@ -28,7 +28,7 @@ const routes: RouteRecordRaw[] = [
       },
       {
         path: 'my-niche-search',
-        component: () => import('pages/my-niche-search.vue'),
+        component: () => import('pages/niche-search/index.vue'),
       },
     ],
   },

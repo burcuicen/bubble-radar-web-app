@@ -1,6 +1,7 @@
 <template lang="pug">
 q-table(wrap-cells flat bordered color="primary" title="My Niche Search Templates" :rows="table.rows" :columns="table.columns" row-key="_id" :loading="table.loading" :filter="table.keyword" @request="search" v-model:pagination="table.pagination" :rows-per-page-options="table.rowsPerPageOptions")
   template(#top-right="props")
+    q-btn(color="primary" label="Create" icon="add" @click="add")
     q-input.q-mx-md(filled dense clearable v-model="table.keyword" style="width: 200px" placeholder="Search.." @update:model-value="search")
       template(#prepend)
         q-icon(name="search")
@@ -9,7 +10,8 @@ q-table(wrap-cells flat bordered color="primary" title="My Niche Search Template
 <script lang="ts">
 import UnderDevelopment from 'src/components/under-development.vue';
 import { defineComponent } from 'vue';
-import { NicheSearch, Populated } from 'src/api/interfaces';
+import { NicheSearch, Populated, PaginatedResult } from 'src/api/interfaces';
+import { QTableProps } from 'quasar';
 
 export default defineComponent({
   name: 'MyNicheSearch',
@@ -19,8 +21,8 @@ export default defineComponent({
   data() {
     return {
       table: {
-        rows: [] as NicheSearch<Populated>[],
-        columns: [] as any[],
+        rows: [] as PaginatedResult<NicheSearch<Populated>>[],
+        columns: [] as QTableProps,
         loading: false,
         keyword: '',
         pagination: {
@@ -45,14 +47,17 @@ export default defineComponent({
     }
   },
   methods: {
+    add() {
+      console.log('add')
+    },
     async search() {
       const { page, rowsPerPage } = this.table.pagination
-      const { err, res } = await this.$api.trending.getAll({
+      const { err, res } = await this.$api.myNicheSearch.getAll({
         page: page,
         limit: rowsPerPage,
         text: this.table.keyword
       })
-      if (err) return this.$q.notify({ type: 'negative', message: err.message })
+      if (err) return console.log(err.message)
       //eslint-disable-next-line
       //@ts-ignore
       this.table.rows = res.data
@@ -63,35 +68,32 @@ export default defineComponent({
           name: 'trendingKeywords',
           label: 'Keyword List',
           align: 'left',
-          format: (val: string[]) => {
-            return val.map((keyword) => keyword).join(', ').slice(0, 100)
-          },
+          field: (row: { trendingKeywords: string[]; }) => row.trendingKeywords.join(', ').substring(0, 100),
+
         },
         {
           name: 'niche',
           label: 'Niche',
           align: 'left',
+          field: (row: { niche: string; }) => row?.niche,
+        },
+        {
+          name: 'mainTag',
+          label: 'Main Tag',
+          align: 'left',
+          field: (row: { mainTag: string; }) => row?.mainTag,
         },
         {
           name: 'tags',
           label: 'Tags',
           align: 'left',
-          format: (val: string[]) => {
-            return val.map((tag) => tag).join(', ').slice(0, 100)
-          },
+          field: (row: { tags: string[]; }) => row?.tags.join(', ').substring(0, 100),
         },
         {
           name: 'plannedUploadCount',
           label: 'Planned Upload Count',
           align: 'left',
-        },
-        {
-          name: 'createdAt',
-          label: 'Created At',
-          align: 'left',
-          format: (val: string) => {
-            return new Date(val).toLocaleString()
-          },
+          field: (row: { plannedUploadCount: number; }) => row?.plannedUploadCount,
         },
 
       ]
