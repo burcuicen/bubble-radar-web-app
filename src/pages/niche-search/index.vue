@@ -1,7 +1,7 @@
 <template lang="pug">
 q-table(wrap-cells flat bordered color="primary" title="My Niche Search Templates" :rows="table.rows" :columns="table.columns" row-key="_id" :loading="table.loading" :filter="table.keyword" @request="search" v-model:pagination="table.pagination" :rows-per-page-options="table.rowsPerPageOptions")
   template(#top-right="props")
-    q-btn(color="primary" label="Create" icon="add" @click="add")
+    q-btn(color="primary" label="Create" icon="add" to="/my-niche-search/manage")
     q-input.q-mx-md(filled dense clearable v-model="table.keyword" style="width: 200px" placeholder="Search.." @update:model-value="search")
       template(#prepend)
         q-icon(name="search")
@@ -48,7 +48,7 @@ export default defineComponent({
   },
   methods: {
     add() {
-      console.log('add')
+      this.$router.replace({ name: 'NicheSearchManage', params: { id: 'new' } })
     },
     async search() {
       const { page, rowsPerPage } = this.table.pagination
