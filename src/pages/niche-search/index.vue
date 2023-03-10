@@ -75,40 +75,34 @@ export default defineComponent({
     setColumns() {
       return [
         {
-          name: 'trendingKeywords',
-          label: 'Keyword List',
-          align: 'left',
-          field: (row: { trendingKeywords: string[]; }) => row.trendingKeywords.join(', ').substring(0, 100),
-
-        },
-        {
-          name: 'niche',
-          label: 'Niche',
-          align: 'left',
-          field: (row: { niche: string; }) => row?.niche,
-        },
-        {
           name: 'mainTag',
           label: 'Main Tag',
           align: 'left',
           field: (row: { mainTag: string; }) => row?.mainTag,
         },
         {
-          name: 'tags',
-          label: 'Tags',
-          align: 'left',
-          field: (row: { tags: string[]; }) => row?.tags.join(', ').substring(0, 100),
+          name: 'niche',
+          label: 'Niche',
+          align: 'center',
+          field: (row: { niche: string; }) => row?.niche,
+        },
+        {
+          name: 'trendingKeywords',
+          label: 'Keyword List',
+          align: 'center',
+          field: (row: { trendingKeywords: string[]; }) => row.trendingKeywords.join(', ').substring(0, 50) + '...',
+
         },
         {
           name: 'plannedUploadCount',
           label: 'Planned Upload Count',
-          align: 'left',
+          align: 'center',
           field: (row: { plannedUploadCount: number; }) => row?.plannedUploadCount,
         },
         {
           name: 'actions',
           label: 'Actions',
-          align: 'left'
+          align: 'center'
         }
 
       ]
