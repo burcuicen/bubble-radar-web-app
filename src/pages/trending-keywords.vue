@@ -1,9 +1,10 @@
 <template lang="pug">
-q-table(wrap-cells flat bordered color="primary" title="Trending Keywords" :rows="table.rows" :columns="table.columns" row-key="_id" :loading="table.loading" :filter="table.keyword" @request="search" v-model:pagination="table.pagination" :rows-per-page-options="table.rowsPerPageOptions")
+q-table(wrap-cells flat bordered color="primary" title="Trending Keywords" :rows="table.rows" :columns="table.columns" row-key="_id" :loading="table.loading" :filter="table.keyword" @request="search" v-model:pagination="table.pagination" :rows-per-page-options="table.rowsPerPageOptions" selection="multiple" v-model:selected="selectedKeywords")
   template(#top-right="props")
     q-input.q-mx-md(filled dense clearable v-model="table.keyword" style="width: 200px" placeholder="Search.." @update:model-value="search")
       template(#prepend)
         q-icon(name="search")
+    q-btn(@click="createNewNicheSearch" color="primary" label="Create New Niche Search" icon="add" class="q-mr-md")
 </template>
 <script>
 import { defineComponent } from 'vue';
@@ -11,6 +12,7 @@ export default defineComponent({
   name: 'TrendingKeywordsList',
   data() {
     return {
+      selectedKeywords: [],
       table: {
         rows: [],
         columns: [],
@@ -45,6 +47,10 @@ export default defineComponent({
         ))
       )
 
+    },
+    createNewNicheSearch() {
+      localStorage.setItem('selectedKeywords', JSON.stringify(this.selectedKeywords))
+      this.$router.push({ name: 'NicheSearchManage' })
     },
     setColumns() {
       return [

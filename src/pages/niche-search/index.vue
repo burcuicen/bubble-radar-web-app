@@ -5,6 +5,16 @@ q-table(wrap-cells flat bordered color="primary" title="My Niche Search Template
     q-input.q-mx-md(filled dense clearable v-model="table.keyword" style="width: 200px" placeholder="Search.." @update:model-value="search")
       template(#prepend)
         q-icon(name="search")
+  template(#body-cell-actions="props")
+    q-td.text-no-wrap(:props="props")
+      q-btn(flat round dense size="11px" icon="edit" :to="{ name: 'NicheSearchManage', params: { id: props.row._id } }")
+        q-tooltip Edit
+      q-btn(flat round dense size="11px" icon="delete")
+        q-tooltip Delete
+        q-menu.q-pa-md.column.bordered
+          .text-weight-medium Are you sure?
+          .text-grey.text-no-wrap Item will be deleted
+          q-btn.q-ml-auto.q-mt-md(padding="4px 16px" color="primary" @click="deleteItem(props.row._id)" label="Delete")
 //UnderDevelopment
 </template>
 <script lang="ts">
@@ -95,8 +105,18 @@ export default defineComponent({
           align: 'left',
           field: (row: { plannedUploadCount: number; }) => row?.plannedUploadCount,
         },
+        {
+          name: 'actions',
+          label: 'Actions',
+          align: 'left'
+        }
 
       ]
+    },
+    async deleteItem(id: string) {
+      const { err, res } = await this.$api.myNicheSearch.deleteById(id)
+      if (err) return console.log(err.message)
+      this.search()
     }
   }
 });
