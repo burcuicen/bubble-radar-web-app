@@ -1,5 +1,6 @@
 <template lang="pug">
-.text-h6.q-mb-md Tag Manager
+.text-h6 Tag Manager
+.text-subtitle2.q-mb-md This tool will help you to format your tags and check if they are trademarked
 q-input(v-model="tagText" filled type="textarea" label="Tag Text" hint="Enter your tag text here")
 q-btn(@click="generate" color="primary" label="Generate Model" class="q-mt-md")
 .q-mt-md(v-if="tags.length")
@@ -7,7 +8,7 @@ q-btn(@click="generate" color="primary" label="Generate Model" class="q-mt-md")
   .text-subtitle2.q-mb-md {{tags.length}} tags generated
   .row.q-col-gutter-md
     .col-12
-      q-chip(v-for="tag in tags" :key="tag"  class="q-mr-md q-mb-md" color="secondary" text-color="white" :label="tag" removable @remove="removeTag(tag)" icon-remove="close")
+      q-chip(v-for="tag in tags" :key="tag" class="q-mr-md q-mb-md" color="secondary" text-color="white" :label="tag" removable @remove="removeTag(tag)" icon-remove="close")
     .col-12
       q-input(v-model="output" filled type="textarea" label="Output")
       q-btn(@click="copy(output)" color="primary" label="Copy" class="q-mt-md")
