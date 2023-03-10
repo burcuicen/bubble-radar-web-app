@@ -5,6 +5,12 @@ q-table(wrap-cells flat bordered color="primary" title="Trending Keywords" :rows
       template(#prepend)
         q-icon(name="search")
     q-btn(@click="createNewNicheSearch" color="primary" label="Create New Niche Search" icon="add" class="q-mr-md")
+  template(#body-cell-actions="props")
+    q-td.text-no-wrap(:props="props")
+      q-btn.q-mr-md(flat round dense size="11px" icon="content_copy" @click="copyKeyword(props.row.keyword)")
+        q-tooltip Copy
+      q-btn(flat round dense size="11px" icon="link" @click="navigate(props.row.keyword)")
+        q-tooltip Navigate
 </template>
 <script>
 import { defineComponent } from 'vue';
@@ -62,8 +68,19 @@ export default defineComponent({
           field: row => row.keyword,
           format: val => `${val}`,
           sortable: false
+        },
+        {
+          name: 'actions',
+          label: 'Actions',
+          field: 'actions',
+          align: 'center',
+          sortable: false,
+          style: 'width: 100px'
         }
       ]
+    },
+    copyKeyword(keyword) {
+      navigator.clipboard.writeText(keyword)
     },
     async search() {
       const { page, rowsPerPage } = this.table.pagination
@@ -75,6 +92,10 @@ export default defineComponent({
       if (err) return this.$q.notify({ type: 'negative', message: err.message })
       this.table.rows = res.data
       this.cleanDuplicateData()
+    },
+    navigate(keyword) {
+      const url = `https://www.redbubble.com/shop/?query=${keyword}`
+      window.open(url, '_blank')
     }
   },
 })
