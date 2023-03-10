@@ -15,8 +15,6 @@ Bubble Radar is a web application designed to simplify the process of finding tr
 
 ## Technologies Used
 
-List the technologies you used to develop your application. Here are some possible technologies you might include:
-
 - Backend: NodeJS, Express
 - Frontend: VueJS, Quasar, TypeScript
 - Database: MongoDB
