@@ -12,10 +12,14 @@
     q-input(v-model="manage.mainTag" filled  label="Main Tag" hint="Enter your main tag here")
   .col-12.col-md-4
     q-input(v-model="manage.plannedUploadCount" filled type="number" label="Planned Upload Count" hint="How much designs will you upload?")
+  .col-12
+    q-input(v-model="manage.note" filled type="textarea" label="Note" hint="Enter your notes here")
   .col-12(v-if="manage.trendingKeywords.length")
     q-chip(v-for="keyword in manage.trendingKeywords" :key="keyword"  class="q-mr-md q-mb-md" color="secondary" text-color="white" :label="keyword" removable @remove="removeKeyword(keyword)" icon-remove="close")
   .col-12
     q-input(v-model="manage.trendingKeywords" filled type="textarea" label="Keyword List" hint="Enter your keyword list here")
+  //- .col-12
+  //-   ToDoList(:todos="manage.toDoList" @new-todo="addTodo")
   .col-12
     q-input(v-model="manage.tags" filled type="textarea" label="Tags" hint="Enter your tags here")
   .col-12
@@ -24,11 +28,13 @@
 <script lang="ts">
 import { defineComponent } from 'vue';
 import TagManager from 'src/components/tagManager.vue';
-import { NicheSearch, Populated, TrendingKeyword } from 'src/api/interfaces';
+import ToDoList from 'src/components/toDoList.vue';
+import { NicheSearch, Populated, TrendingKeyword, ToDo, IToDoStatus } from 'src/api/interfaces';
 export default defineComponent({
   name: 'NicheSearchManage',
   components: {
-    TagManager
+    TagManager,
+    ToDoList,
   },
   created() {
     const id = this.$route.params.id as string;
@@ -50,7 +56,9 @@ export default defineComponent({
         trendingKeywords: [] as string[],
         mainTag: '' as string,
         plannedUploadCount: 0 as number,
-        tags: [] as string[]
+        tags: [] as string[],
+        note: '' as string,
+        toDoList: [] as ToDo[],
       } as NicheSearch<Populated>,
     };
   },
@@ -63,6 +71,7 @@ export default defineComponent({
       //eslint-disable-next-line
       //@ts-ignore
       this.manage = res.data;
+      console.log(this.manage.toDoList);
     },
     async save() {
       if (this.mode === 'create') return await this.createNewNicheSearch();
@@ -80,7 +89,15 @@ export default defineComponent({
       const { err } = await this.$api.myNicheSearch.updateById(this.id, this.manage);
       if (err) return console.log(err.message);
       this.$router.push({ name: 'MyNicheSearch' })
-    }
+    },
+    addTodo(newTodo: ToDo) {
+      if (this.manage) {
+        //eslint-disable-next-line
+        //@ts-ignore
+        this.manage.toDoList.push(newTodo);
+      }
+    },
+
   }
 });
 </script>

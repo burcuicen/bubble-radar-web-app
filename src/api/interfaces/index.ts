@@ -1,5 +1,11 @@
 import { AxiosError, AxiosResponse } from 'axios';
-
+export type IToDoStatus = 'to-do' | 'in-progress' | 'done';
+export interface ToDo {
+  status: IToDoStatus;
+  title: string;
+  details: string;
+  estimatedTime: number;
+}
 // Generic Interfaces
 export interface RequestWrapper<T, E = ErrorResponse> {
   err: AxiosError<E> | null;
@@ -49,6 +55,8 @@ export interface NicheSearch<T> extends BaseModel {
   tags: string[];
   niche: string;
   plannedUploadCount: number;
+  note?: string;
+  toDoList?: ToDo[];
 }
 
 export type Raw = 'raw';
