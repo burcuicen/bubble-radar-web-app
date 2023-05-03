@@ -28,7 +28,7 @@ export default defineComponent({
           page: 1,
           rowsPerPage: 10
         },
-        rowsPerPageOptions: [10, 20, 30, 50, 100]
+        rowsPerPageOptions: [10, 20, 30, 50, 100, -1]
       }
     }
   },

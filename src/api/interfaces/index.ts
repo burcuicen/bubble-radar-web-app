@@ -58,6 +58,11 @@ export interface NicheSearch<T> extends BaseModel {
   note?: string;
   toDoList?: ToDo[];
 }
+export interface TrademarkItem<T> extends BaseModel {
+  query: string;
+  trademarkName: string;
+  trademarkStatus: string;
+}
 
 export type Raw = 'raw';
 export type Populated = 'populated';
