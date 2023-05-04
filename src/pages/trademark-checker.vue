@@ -7,14 +7,15 @@
   .col-12(v-if="results.length")
     .text-h6.q-mt-md Results
     .text-subtitle.q-mb-md {{ results.length }} results found
-    q-card(v-for="result in results" :key="result.trademarkName" class="q-mt-md")
-      q-card-section
-        .row.flex.justify-between.card
-          .col-12
-            .text-h6 {{ result.trademarkName }}
-            .text-subtitle {{ result.query }}
-          .col-12
-            q-badge(outline :label="result.trademarkStatus" :color="getColor(result.trademarkStatus)" class="q-mr-md")
+    .q-pa-md
+      q-list
+        q-item(v-for="item in results" clickable)
+          q-item-section
+            q-item-label {{ item.trademarkName }}
+            q-item-label(caption lines=2) Showing results for the search term: {{ item.query }}
+          q-item-section(side top)
+            q-badge(outline :label="item.trademarkStatus" :color="getColor(item.trademarkStatus)")
+          q-separator
 </template>
 <script>
 import { defineComponent } from 'vue';
