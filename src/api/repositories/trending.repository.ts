@@ -24,7 +24,7 @@ export class TrendingRepository {
   >(queryParams?: QueryParams): Promise<RequestWrapper<T, E>> {
     const config: AxiosRequestConfig = {
       method: 'GET',
-      url: '/trending/keywords',
+      url: '/trending',
       params: queryParams,
     };
 

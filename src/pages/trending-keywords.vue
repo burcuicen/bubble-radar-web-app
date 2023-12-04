@@ -49,7 +49,7 @@ export default defineComponent({
     cleanDuplicateData() {
       this.table.rows = this.table.rows.filter((thing, index, self) =>
         index === self.findIndex((t) => (
-          t.keyword === thing.keyword
+          t.label === thing.labell
         ))
       )
 
@@ -65,7 +65,7 @@ export default defineComponent({
           required: true,
           label: 'Keyword',
           align: 'left',
-          field: row => row.keyword,
+          field: row => row.label,
           format: val => `${val}`,
           sortable: false
         },
@@ -90,8 +90,8 @@ export default defineComponent({
         text: this.table.keyword
       })
       if (err) return this.$q.notify({ type: 'negative', message: err.message })
-      this.table.rows = res.data
-      this.cleanDuplicateData()
+      const { data } = res.data
+      this.table.rows = data
     },
     navigate(keyword) {
       const url = `https://www.redbubble.com/shop/?query=${keyword}`

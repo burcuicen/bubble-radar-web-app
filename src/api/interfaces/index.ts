@@ -15,7 +15,7 @@ export interface QueryParams {
   [k: string]: any;
   skip?: number;
   limit?: number;
-  text?: string;
+  searchText?: string;
   filter?: string;
   sortBy?: string;
   popPaths?: string;

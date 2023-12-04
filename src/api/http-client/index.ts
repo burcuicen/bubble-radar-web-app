@@ -8,7 +8,7 @@ import { RequestWrapper } from '../interfaces';
 import { to } from '../utils';
 
 export class HttpClient {
-  private API_BASE_URL = 'http://localhost:3000';
+  private API_BASE_URL = 'https://bubble-radar-api.azurewebsites.net/';
   private axios: AxiosInstance;
 
   constructor() {
