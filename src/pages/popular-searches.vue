@@ -4,6 +4,12 @@ q-table(wrap-cells flat bordered color="primary" title="Popular Searches" :rows=
     q-input.q-mx-md(filled dense clearable v-model="table.keyword" style="width: 200px" placeholder="Search.." @update:model-value="search")
       template(#prepend)
         q-icon(name="search")
+  template(#body-cell-actions="props")
+    q-td.text-no-wrap(:props="props")
+      q-btn.q-mr-md(flat round dense size="11px" icon="content_copy" @click="copyKeyword(props.row.label)")
+        q-tooltip Copy
+      q-btn(flat round dense size="11px" icon="link" @click="navigate(props.row.label)")
+        q-tooltip Navigate
 
 </template>
 <script>
@@ -39,16 +45,31 @@ export default defineComponent({
     this.search()
   },
   methods: {
+    copyKeyword(keyword) {
+      navigator.clipboard.writeText(keyword)
+    },
+    navigate(keyword) {
+      const url = `https://www.redbubble.com/shop/?query=${keyword}`
+      window.open(url, '_blank')
+    },
     setColumns() {
       return [
         {
-          name: 'keyword',
+          name: 'label',
           required: true,
           label: 'Keyword',
           align: 'left',
-          field: row => row.keyword,
+          field: row => row.keywords,
           format: val => `${val}`,
           sortable: false
+        },
+        {
+          name: 'actions',
+          label: 'Actions',
+          field: 'actions',
+          align: 'center',
+          sortable: false,
+          style: 'width: 100px'
         }
       ]
     },
@@ -57,10 +78,12 @@ export default defineComponent({
       const { err, res } = await this.$api.popular.getAll({
         page: page,
         limit: rowsPerPage,
-        text: this.table.keyword
+        searchText: this.table.keyword
       })
       if (err) return this.$q.notify({ type: 'negative', message: err.message })
-      this.table.rows = res.data
+      const { data } = res.data
+
+      this.table.rows = data
     }
   },
 })
