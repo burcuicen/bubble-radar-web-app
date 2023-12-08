@@ -38,6 +38,12 @@ export default defineComponent({
         this.search()
       },
       deep: true
+    },
+    'table.keyword': {
+      handler() {
+        this.search()
+      },
+      deep: true
     }
   },
   created() {
@@ -78,7 +84,7 @@ export default defineComponent({
       const { err, res } = await this.$api.popular.getAll({
         page: page,
         limit: rowsPerPage,
-        searchText: this.table.keyword
+        text: this.table.keyword
       })
       if (err) return this.$q.notify({ type: 'negative', message: err.message })
       const { data } = res.data
