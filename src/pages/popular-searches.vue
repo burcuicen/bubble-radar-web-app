@@ -32,7 +32,6 @@ export default defineComponent({
     }
   },
   watch: {
-    //watch table.pagination
     'table.pagination': {
       handler() {
         this.search()
