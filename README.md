@@ -10,7 +10,6 @@ Bubble Radar is a web application designed to simplify the process of finding tr
 
 - Search for trending keywords on Redbubble
 - Format product tags using a built-in tag manager
-- Create and save research notes
 - Modify and update saved research notes
 
 ## Technologies Used
