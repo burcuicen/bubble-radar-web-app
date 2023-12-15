@@ -4,7 +4,7 @@ With Bubble Radar, you can stay ahead of the competition by discovering new, tre
 
 ## Project Description
 
-Bubble Radar is a web application designed to simplify the process of finding trending keywords on Redbubble. The app is designed for Redbubble sellers who want to improve their product visibility and sales by using popular keywords in their product tags. With the app, users can easily search for trending keywords, format their tags, and save their research as notes for future use.
+Bubble Radar is a web application designed to simplify the process of finding trending keywords on Redbubble. The app is designed for Redbubble sellers who want to improve their product visibility and sales by using popular keywords in their product tags. With the app, users can easily search for trending keywords, format their tags,
 
 ## Features
 
