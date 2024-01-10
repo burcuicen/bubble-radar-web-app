@@ -18,8 +18,6 @@
     q-chip(v-for="keyword in manage.trendingKeywords" :key="keyword"  class="q-mr-md q-mb-md" color="secondary" text-color="white" :label="keyword" removable @remove="removeKeyword(keyword)" icon-remove="close")
   .col-12
     q-input(v-model="manage.trendingKeywords" filled type="textarea" label="Keyword List" hint="Enter your keyword list here")
-  //- .col-12
-  //-   ToDoList(:todos="manage.toDoList" @new-todo="addTodo")
   .col-12
     q-input(v-model="manage.tags" filled type="textarea" label="Tags" hint="Enter your tags here")
   .col-12
@@ -29,7 +27,7 @@
 import { defineComponent } from 'vue';
 import TagManager from 'src/components/tagManager.vue';
 import ToDoList from 'src/components/toDoList.vue';
-import { NicheSearch, Populated, TrendingKeyword, ToDo, IToDoStatus } from 'src/api/interfaces';
+import { NicheSearch, Populated, TrendingKeyword, ToDo } from 'src/api/interfaces';
 export default defineComponent({
   name: 'NicheSearchManage',
   components: {
@@ -42,7 +40,7 @@ export default defineComponent({
     const keywords = localStorage.getItem('selectedKeywords') as string;
     if (!keywords) return;
     const selectedKeywords = JSON.parse(keywords) as TrendingKeyword<Populated>[];
-    this.manage.trendingKeywords = selectedKeywords.map((keyword) => keyword.keyword);
+    this.manage.trendingKeywords = selectedKeywords.map((keyword) => keyword.label);
   },
   beforeUnmount() {
     localStorage.removeItem('selectedKeywords');
