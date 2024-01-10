@@ -23,6 +23,8 @@ UnderDevelopment(v-else)
 </template>
 <script>
 import { defineComponent } from 'vue';
+import UnderDevelopment from 'src/components/under-development.vue';
+
 export default defineComponent({
   name: 'TrademarkChecker',
   data() {
