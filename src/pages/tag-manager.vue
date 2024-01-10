@@ -1,9 +1,9 @@
 <template lang="pug">
-.q-pa-xl
+div
   .text-h6.q-mb-md Redbubble Tag Manager
   q-input(v-model="tagText" filled type="textarea" label="Tag Text" hint="Enter your tag text here")
   q-btn(@click="generate" color="primary" label="Generate Model" class="q-mt-md")
-.q-pa-xl(v-if="tags.length")
+div(v-if="tags.length")
   .text-h6.q-mb-md Tags
   .text-subtitle2.q-mb-md {{ tags.length ? tags.length : 0}} tags generated
   .row.q-col-gutter-md
@@ -12,7 +12,7 @@
     .col-12
       q-input(v-model="output" filled type="textarea" label="Output")
       q-btn(@click="copy(output)" color="primary" label="Copy" class="q-mt-md")
-.q-pa-xl(v-if="trademarkCheck.length")
+div(v-if="trademarkCheck.length")
   .text-h6.q-mb-md Check Trademark
   .row-q-col-gutter-md
     .col-12
