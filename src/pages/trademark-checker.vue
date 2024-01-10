@@ -1,5 +1,5 @@
 <template lang="pug">
-.row.q-col-gutter-lg
+.row.q-col-gutter-lg(v-if="ready")
   .col-12
     .text-h6.q-mb-md Trademark Checker
     .text-subtitle.q-mb-md.text-grey-8 Looking to check multiple trademarks? Our trademark checker allows you to enter multiple entries, separated by a newline, and quickly search a database of registered trademarks to determine their availability. Avoid potential legal issues and ensure your brand or product names are available for registration with our easy-to-use trademark checker. Try it out now!
@@ -19,6 +19,7 @@
         q-item-section(side top)
           q-badge(outline :label="item.trademarkStatus" :color="getColor(item.trademarkStatus)")
         q-separator
+UnderDevelopment(v-else)
 </template>
 <script>
 import { defineComponent } from 'vue';
@@ -27,7 +28,8 @@ export default defineComponent({
   data() {
     return {
       trademarkList: '',
-      results: []
+      results: [],
+      ready: false,
     };
   },
 
